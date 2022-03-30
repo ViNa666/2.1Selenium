@@ -1,9 +1,11 @@
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+
 
 import java.util.List;
 
@@ -12,8 +14,8 @@ public class OrderCardTest {
 
 
     @BeforeAll
-    public static void setUpAll() {
-        System.setProperty("webdriver.chrome.driver","./driver/chromedriver.exe");
+    static void setUpDriver() {
+        WebDriverManager.chromedriver().setup();
     }
 
     @BeforeEach
@@ -28,8 +30,9 @@ public class OrderCardTest {
 
     @AfterEach
     public void tearDown() {
-        driver.quit();
-        driver = null;
+        if (driver != null) {
+            driver.quit();
+        }
     }
 
     @Test
