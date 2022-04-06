@@ -8,6 +8,8 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class OrderCardTest {
     private WebDriver driver;
 
@@ -36,7 +38,7 @@ public class OrderCardTest {
 
     @Test
     public void shouldSendOrderCard() {
-        driver.get("http://localhost:9999");
+        driver.get("http://localhost:7777");
         driver.findElement(By.cssSelector("[data-test-id ='name'] input")).sendKeys("Иван Римский-Корсаков");
         driver.findElement(By.cssSelector("[data-test-id ='phone'] input")).sendKeys("+79009999999");
         driver.findElement(By.cssSelector("[data-test-id ='agreement'] .checkbox__box")).click();
@@ -52,7 +54,7 @@ public class OrderCardTest {
 
     @Test
     public void shouldSendOrderCardIfNameIsInvalid() {
-        driver.get("http://localhost:9999");
+        driver.get("http://localhost:7777");
         driver.findElement(By.cssSelector("[data-test-id ='name'] input")).sendKeys("Ivan");
         driver.findElement(By.cssSelector("[data-test-id ='phone'] input")).sendKeys("+79009999999");
         driver.findElement(By.cssSelector("[data-test-id ='agreement'] .checkbox__box")).click();
@@ -66,7 +68,7 @@ public class OrderCardTest {
 
     @Test
     public void shouldSendOrderCardIfPhoneIsInvalid() {
-        driver.get("http://localhost:9999");
+        driver.get("http://localhost:7777");
         driver.findElement(By.cssSelector("[data-test-id ='name'] input")).sendKeys("Иван Римский-Корсаков");
         driver.findElement(By.cssSelector("[data-test-id ='phone'] input")).sendKeys("555-00-00");
         driver.findElement(By.cssSelector("[data-test-id ='agreement'] .checkbox__box")).click();
@@ -80,7 +82,7 @@ public class OrderCardTest {
 
     @Test
     public void shouldSendOrderCardIfNameIsEmpty() {
-        driver.get("http://localhost:9999");
+        driver.get("http://localhost:7777");
         driver.findElement(By.cssSelector("[data-test-id ='name'] input")).sendKeys("");
         driver.findElement(By.cssSelector("[data-test-id ='phone'] input")).sendKeys("+79009999999");
         driver.findElement(By.cssSelector("[data-test-id ='agreement'] .checkbox__box")).click();
@@ -94,7 +96,7 @@ public class OrderCardTest {
 
     @Test
     public void shouldSendOrderCardIfPhoneIsEmpty() {
-        driver.get("http://localhost:9999");
+        driver.get("http://localhost:7777");
         driver.findElement(By.cssSelector("[data-test-id ='name'] input")).sendKeys("Иван Римский-Корсаков");
         driver.findElement(By.cssSelector("[data-test-id ='phone'] input")).sendKeys("");
         driver.findElement(By.cssSelector("[data-test-id ='agreement'] .checkbox__box")).click();
@@ -108,17 +110,18 @@ public class OrderCardTest {
 
     @Test
     public void shouldSendOrderCardIfCheckboxIsUnchecked() {
-        driver.get("http://localhost:9999");
+        driver.get("http://localhost:7777");
         driver.findElement(By.cssSelector("[data-test-id ='name'] input")).sendKeys("Иван Римский-Корсаков");
         driver.findElement(By.cssSelector("[data-test-id ='phone'] input")).sendKeys("");
 
         driver.findElement(By.cssSelector("button .button__text")).click();
 
+        assertTrue(driver.findElement(By.cssSelector(".input_invalid")).isDisplayed());
 
-        String actualTextColor = driver.findElement(By.cssSelector("[data-test-id='agreement'] .checkbox__control")).getCssValue("color");
-        String expectedTextColor = "rgba(0, 0, 0, 1)";
 
-        Assertions.assertEquals(expectedTextColor, actualTextColor);
+
+
+
     }
 
 
